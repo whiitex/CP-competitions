@@ -46,7 +46,9 @@ int main() {
     }
 }
 
-/* DP SOLUTION
+/*
+    DP SOLUTION (easy but long implementation)
+
         int size = (int) log2(n) + 1;
 
         // init dp vector
@@ -97,4 +99,4 @@ int main() {
             if (mas < v) mas = v;
 
         cout << n - mas << '\n';
-        */
+*/
