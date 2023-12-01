@@ -22,10 +22,14 @@ void solve() {
     unordered_map<int, pair<int,int>> m;
     m.insert({0, {0,0}});
     for (int i=n-1; i>=0; --i) {
+
+        // if it has never been inserted
         if (m.find(vec[i]) == m.end()) {
             if (m.find(vec[i] + 1) != m.end())
                 m.insert({vec[i], {m[vec[i] + 1].first + 1, vec[i] + 1}});
             else m.insert({vec[i], {1, 0}});
+
+        // if it is already in map -> check for a better sequences
         } else if (m.find(vec[i] + 1) != m.end())
             m[vec[i]] = {m[vec[i] + 1].first + 1, vec[i] + 1};
     }
