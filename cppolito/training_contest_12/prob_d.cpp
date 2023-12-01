@@ -5,84 +5,48 @@ using namespace std;
 #define ll long long
 #define ld long double
 
-const int MAX_N = 1e5 + 5;
-const ll MOD = 1e9 + 7;
-const ll INF = 1e9;
-const ld EPS = 1e-9;
+int par[20][(int)2e5+5];
 
-class Node {
-public:
-    ll a;
-    int i;
-    vector<Node*> children;
-    Node(ll value, int index) {
-        a = value;
-        i = index;
-    }
-};
+int rec(int c, int left, int right) {
 
+    int mid = (left + right) >> 1;
+    int cl = par[c][mid] - par[c][left];
+    int cr = par[c][right] - par[c][mid];
 
-/* TIME LIMIT EXCEEDED1
- *
-int rec1(char c, int left, int right, string s) {
-
-    // base condition: analizing last 1-item partition
-    if (left + 1 == right) {
-        if (s[left] == c) return 0;
-        else return 1;
-
+        // base condition: analizing last 1-item partition
+    if (left+1 == right) {
+        return cr;
     } else {
         // count higher value of char c
-        int cl=0, cr=0, mid = (left + right) >> 1;
-        for (int i=left; i<right;++i) {
-            if (s[i] == c and i<mid) ++cl;
-            else if (s[i] == c and i>=mid) ++cr;
-        }
-
-        if (cl != cr)
-            return mid-left + min(rec(c+1, mid, right, s) -cl, rec(c+1, left, mid, s) -cr);
-        else
-            return mid-left-cl + min(rec(c+1, mid, right, s), rec(c+1, left, mid, s));
+        return min(rec(c+1, mid, right) +cl, rec(c+1, left, mid) +cr);
     }
 }
- */
-
-
-/* TIME LIMIT EXCEEDED 2
- *
-int rec2(char c, int left, int right, string s, vector<vector<int>> DP, int size) {
-
-    // base condition: analizing last 1-item partition
-    if (left + 1 == right) {
-        if (s[left] == c) return 0;
-        else return 1;
-
-    } else {
-        // count higher value of char c
-        int base = c-'a';
-        if (base == size-1) --base;
-        int pts = (int)pow(2, base+1);
-        int mid = (left + right) >> 1;
-        int pos = (int)( (float)left/(float)s.size() * (float)pts );
-        int cl = DP[c-'a'][pos];
-        int cr = DP[c-'a'][pos+1];
-
-        return mid-left + min(rec(c+1, mid, right, s, DP, size) -cl,
-                              rec(c+1, left, mid, s, DP, size) -cr);
-    }
-}
- */
 
 void solve() {
     int n;
     string str;
     cin >> n >> str;
 
-    if (n == 1) {
-        if (str[0] == 'a')
-            cout << 0 << '\n';
-        else cout << 1 << '\n';
-    } else {
+    for(int c=0; c<20; ++c)
+        for (int i=1; i<=n; ++i)
+            par[c][i] = par[c][i-1] + ((str[i-1] -'a') != c);
+
+    cout << rec(0, 0, n) << '\n';
+
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+}
+
+/* DP SOLUTION
         int size = (int) log2(n) + 1;
 
         // init dp vector
@@ -133,19 +97,4 @@ void solve() {
             if (mas < v) mas = v;
 
         cout << n - mas << '\n';
-    }
-
-//    int sol = rec1('a', 0, n, str)
-//    int sol = rec2('a', 0, n, str, dp, size);
-}
-
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
-}
+        */
