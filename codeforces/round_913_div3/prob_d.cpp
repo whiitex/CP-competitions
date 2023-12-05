@@ -9,12 +9,15 @@ const ll MAX_N = 1e5 + 5;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e9;
 const ld EPS = 1e-9;
+
 vector<pair<ll,ll>> vec(2e5+5);
 
 bool isposs(ll n, ll k) {
     ll l=0, r=0;
 
     for (ll i=0; i<n; ++i) {
+
+        // next segment is on the out-left
         if (r < vec[i].first) {
             if (r+k >= vec[i].first) {
                 l = vec[i].first;
@@ -22,13 +25,16 @@ bool isposs(ll n, ll k) {
                     r+=k;
                 else r = vec[i].second;
             } else return false;
-        } else if (l > vec[i].second) {
+        }
+        // next segment is on the out-right
+        else if (l > vec[i].second) {
             if (l-k <= vec[i].second) {
                 r = vec[i].second;
                 if (l-k >= vec[i].first) l-=k;
                 else l = vec[i].first;
             } else return false;
         }
+        // next segment is already good
         else {
             if (l-k < vec[i].first)
                 l = vec[i].first;
@@ -39,7 +45,6 @@ bool isposs(ll n, ll k) {
             else r += k;
         }
     }
-
     return true;
 }
 
@@ -47,6 +52,7 @@ void solve() {
     ll n; cin >> n;
     for (ll i=0; i<n; ++i) cin >> vec[i].first >> vec[i].second;
 
+    // binary search on all k
     ll l=0, r=1e9;
     while(l<r) {
         ll mid = l+r >> 1;
