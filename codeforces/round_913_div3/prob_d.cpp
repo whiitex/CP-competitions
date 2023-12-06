@@ -21,28 +21,20 @@ bool isposs(ll n, ll k) {
         if (r < vec[i].first) {
             if (r+k >= vec[i].first) {
                 l = vec[i].first;
-                if (r+k <= vec[i].second)
-                    r+=k;
-                else r = vec[i].second;
+                r = min (r+k, vec[i].second);
             } else return false;
         }
         // next segment is on the out-right
         else if (l > vec[i].second) {
             if (l-k <= vec[i].second) {
                 r = vec[i].second;
-                if (l-k >= vec[i].first) l-=k;
-                else l = vec[i].first;
+                l = max(l-k, vec[i].first);
             } else return false;
         }
         // next segment is already good
         else {
-            if (l-k < vec[i].first)
-                l = vec[i].first;
-            else l -= k;
-
-            if (r+k > vec[i].second)
-                r = vec[i].second;
-            else r += k;
+            l = max(l-k, vec[i].first);
+            r = min (r+k, vec[i].second);
         }
     }
     return true;
