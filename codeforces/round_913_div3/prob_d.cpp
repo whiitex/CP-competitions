@@ -5,12 +5,12 @@ using namespace std;
 #define ll long long
 #define ld long double
 
-const ll MAX_N = 1e5 + 5;
+const ll MAX_N = 2e5 + 5;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e9;
 const ld EPS = 1e-9;
 
-vector<pair<ll,ll>> vec(2e5+5);
+vector<pair<ll,ll>> vec(MAX_N);
 
 bool isposs(ll n, ll k) {
     ll l=0, r=0;
@@ -21,7 +21,7 @@ bool isposs(ll n, ll k) {
         if (r < vec[i].first) {
             if (r+k >= vec[i].first) {
                 l = vec[i].first;
-                r = min (r+k, vec[i].second);
+                r = min(r+k, vec[i].second);
             } else return false;
         }
         // next segment is on the out-right
@@ -34,7 +34,7 @@ bool isposs(ll n, ll k) {
         // next segment is already good
         else {
             l = max(l-k, vec[i].first);
-            r = min (r+k, vec[i].second);
+            r = min(r+k, vec[i].second);
         }
     }
     return true;
