@@ -42,7 +42,8 @@ bool isposs(ll n, ll k) {
 
 void solve() {
     ll n; cin >> n;
-    for (ll i=0; i<n; ++i) cin >> vec[i].first >> vec[i].second;
+    for (ll i=0; i<n; ++i)
+        cin >> vec[i].first >> vec[i].second;
 
     // binary search on all k
     ll l=0, r=1e9;
