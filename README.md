@@ -1,4 +1,4 @@
-# CP-competitions
+# CP Competitions
 This repository contains all the codes used to compete in public (remotely) competitions or to carry out some self-training sessions.
 
 ## CPPoliTo
