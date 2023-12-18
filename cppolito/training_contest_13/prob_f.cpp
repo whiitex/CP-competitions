@@ -39,23 +39,19 @@ void solve() {
         vec[i] = v;
     }
 
-    // denominator
-    ll totk = 0;
-    for (auto val: k) totk += val;
-    ll den = (totk * n) % MOD;
-    den = powlogn(den, MOD-2) % MOD;
+    ll invnn = powlogn(n, MOD-2) * powlogn(n, MOD-2);
+    invnn %= MOD;
 
-    // numerator
-    ll num = 0;
+    ll ans = 0;
     for (int i=0; i<n; ++i) {
-        for (int present: vec[i]) {
+        ll den = (invnn * powlogn(vec[i].size(), MOD-2)) % MOD;
+        ll num = 0;
+        for (int present: vec[i])
             num += reg_kid[present];
-            if (num > MOD) num %= MOD;
-        }
+        ans = (ans + num * den) % MOD;
     }
 
-    ll res = (num * den) % MOD;
-    cout << res;
+    cout << ans % MOD;
 
 }
 
