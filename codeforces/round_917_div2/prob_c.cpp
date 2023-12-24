@@ -25,7 +25,7 @@ void solve() {
     }
 
     int newans=good, daysspent=1;
-    for (int kk=0; kk<max(n,k); ++kk) {
+    for (int kk=0; kk<2*n; ++kk) { // 2*n is best, because we could egt n by using that days for set-reset
         good = 0;
         for (int i=0; i<b[kk%k]; ++i) a[i]++;
 
