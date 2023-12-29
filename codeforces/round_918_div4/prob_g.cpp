@@ -9,22 +9,6 @@ using namespace std;
 #define s second
 typedef pair<int,int> pii;
 
-const ll MAX_N = 1e5 + 5;
-const ll MOD = 1e9 + 7;
-const ll INF = 1e9;
-const ld EPS = 1e-9;
-
-struct Node {
-    int i;
-    int cost;
-    int bike;
-    vector<Node*> children;
-    Node(int index, int c) {
-        i = index;
-        cost = c;
-    }
-};
-
 void solve() {
     int n,m; cin >> n >> m;
     vector<pii> roads[n+1];
@@ -49,7 +33,7 @@ void solve() {
         int bk = q.top()[2];
         q.pop();
 
-        if (visited[now][bk] or dp[now][bk] == LONG_LONG_MAX) continue;
+        if (visited[now][bk]) continue;
         visited[now][bk] = true;
 
         for (auto ch: roads[now]) {
