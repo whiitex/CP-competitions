@@ -7,8 +7,7 @@ using namespace std;
 #define ld long double
 #define f first
 #define s second
-
-typedef pair<ll, pair<ll,ll>> plpll;
+typedef pair<int,int> pii;
 
 const ll MAX_N = 1e5 + 5;
 const ll MOD = 1e9 + 7;
@@ -16,68 +15,61 @@ const ll INF = 1e9;
 const ld EPS = 1e-9;
 
 struct Node {
-    ll i;
-    ll cost;
-    ll bike;
+    int i;
+    int cost;
+    int bike;
     vector<Node*> children;
-    Node(ll index, ll c) {
+    Node(int index, int c) {
         i = index;
         cost = c;
     }
 };
 
 void solve() {
-    ll n,m; cin >> n >> m;
-    vector<Node*> cities(n);
-    map<pair<ll,ll>, ll> road;
-
-    for (ll i=1; i<=n; ++i) cities[i] = new Node(i,LONG_LONG_MAX);
-
-    for (ll i=0; i<m; ++i) {
-        ll u, v, w; cin >> u >> v >> w;
-        if (u > v) swap(u,v);
-        cities[u]->children.push_back(cities[v]);
-        cities[v]->children.push_back(cities[u]);
-        road.insert({{u,v}, w});
+    int n,m; cin >> n >> m;
+    vector<pii> roads[n+1];
+    vector<int> bike(n+1);
+    for (int i=0; i<m; ++i) {
+        int u,v,w; cin >> u >> v >> w;
+        roads[u].emplace_back(v,w);
+        roads[v].emplace_back(u,w);
     }
+    for (int i=1; i<=n; ++i) cin >> bike[i];
 
-    vector<vector<ll>> dp(n+1);
-    bool visited[n+1][1000]; memset(visited, false, sizeof(visited));
-    for (int i=1; i<=n; ++i) dp[i].resize(1001, LONG_LONG_MAX);
-    for (int i=1; i<=n; ++i) cin >> cities[i]->bike;
+    vector<vector<ll>> dp(n+1, vector<ll>(1001, LONG_LONG_MAX));
+    dp[1][bike[1]] = 0;
+    vector<vector<bool>> visited(n+1, vector<bool>(1001, false));
 
-    priority_queue<plpll, vector<plpll>, greater<>> q;
-    ll bk1 = cities[1]->bike;
-    for (auto ch: cities[1]->children)
-        q.push({road[{1,ch->i}] * bk1, {bk1,ch->i} });
+    priority_queue<array<ll,3>, vector<array<ll,3>>, greater<>> q;
+    q.push({0, 1, bike[1]});
 
     while (!q.empty()) {
 
-//        ll sour = q.front().sour;
-        ll dest = q.top().s.s;
-        Node* Dest = cities[q.top().s.s];
-        ll bike = q.top().s.f;
-        ll ct = q.top().f;
+        int now = q.top()[1];
+        int bk = q.top()[2];
         q.pop();
 
-        // update dp
-        dp[dest][bike] = min(ct, dp[dest][bike]);
-        visited[dest][bike] = true;
+        if (visited[now][bk] or dp[now][bk] == LONG_LONG_MAX) continue;
+        visited[now][bk] = true;
 
-        // add children
-        ll newbike = min(bike, Dest->bike);
-        if (dest!=n) for (auto ch: Dest->children) if (!visited[ch->i][newbike]) {
-            ll cost = dp[dest][bike] + road[{min(ch->i, Dest->i), max(ch->i, Dest->i)}] * newbike;
-            q.push({cost, {newbike,ch->i}});
+        for (auto ch: roads[now]) {
+            ll nextcost = dp[now][bk] + 1ll * ch.second * bk;
+            ll minbike = min(bk, bike[ch.first]);
+
+            //if (!visited[ch.first][minbike]) {
+                // avoiding same pair of city link
+                if (dp[ch.first][minbike] > nextcost) {
+                    dp[ch.first][minbike] = nextcost;
+                    q.push({nextcost, ch.first, minbike});
+                }
+            //}
         }
 
     }
 
     ll ans = LONG_LONG_MAX;
-    for (int i=1; i<=1000; ++i) ans = min(ans, dp[n][i]);
+    for (int i=1; i<=1000; ++i) ans = min (ans, dp[n][i]);
     cout << ans << '\n';
-    return;
-
 }
 
 signed main() {
@@ -90,6 +82,63 @@ signed main() {
         solve();
     }
 }
+
+
+
+
+/* MEMORY LIMIT EXCEEDED
+ * void solve() {
+    int n,m; cin >> n >> m;
+    vector<Node*> cities(n+1);
+    int road[n+1][n+1];
+    for (int i=0; i<=n; ++i) for (int j=0; j<=n; ++j) road[i][j] = INT32_MAX;
+
+    for (int i=1; i<=n; ++i) cities[i] = new Node(i,INT32_MAX);
+
+    for (int i=0; i<m; ++i) {
+        int u, v, w; cin >> u >> v >> w;
+        cities[u]->children.push_back(cities[v]);
+        cities[v]->children.push_back(cities[u]);
+        road[u][v] = min (road[u][v], w);
+        road[v][u] = min (road[v][u], w);
+    }
+
+    vector<vector<ll>> dp(n+1);
+    bool visited[n+1][1001]; memset(visited, false, sizeof(visited));
+    for (int i=1; i<=n; ++i) dp[i].resize(1001, LONG_LONG_MAX);
+    for (int i=1; i<=n; ++i) cin >> cities[i]->bike;
+
+    priority_queue<array<ll,3>> q;
+    int bk1 = cities[1]->bike;
+    for (auto ch: cities[1]->children)
+        q.push({-road[1][ch->i] * bk1, bk1,ch->i });
+
+    while (!q.empty()) {
+
+        ll dest = q.top()[2];
+        Node* Dest = cities[q.top()[2]];
+        ll bike = q.top()[1];
+        ll ct = -q.top()[0];
+        q.pop();
+
+        // update dp
+        dp[dest][bike] = min(ct, dp[dest][bike]);
+        visited[dest][bike] = true;
+
+        // add children
+        ll newbike = min((int)bike, Dest->bike);
+        if (dest!=n) for (auto ch: Dest->children) if (!visited[ch->i][newbike]) {
+            ll cost = dp[dest][bike] + (ll)road[ch->i][Dest->i] * newbike;
+            q.push({-cost, newbike,ch->i});
+        }
+
+    }
+
+    ll ans = LONG_LONG_MAX;
+    for (int i=1; i<=1000; ++i) ans = min(ans, dp[n][i]);
+    cout << ans << '\n';
+}
+ */
 
 /* NOT WORKING DIJKSTRA
  *
