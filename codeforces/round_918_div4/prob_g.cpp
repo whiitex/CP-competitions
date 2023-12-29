@@ -2,11 +2,9 @@
 
 using namespace std;
 
-#define lll __ll128_t
-#define ll long long
-#define ld long double
 #define f first
 #define s second
+typedef long long ll;
 typedef pair<int,int> pii;
 
 void solve() {
@@ -37,14 +35,14 @@ void solve() {
         visited[now][bk] = true;
 
         for (auto ch: roads[now]) {
-            ll nextcost = dp[now][bk] + 1ll * ch.second * bk;
-            ll minbike = min(bk, bike[ch.first]);
+            ll nextcost = dp[now][bk] + 1ll * ch.s * bk;
+            ll minbike = min(bk, bike[ch.f]);
 
-            if (!visited[ch.first][minbike]) {
+            if (!visited[ch.f][minbike]) {
                 // avoiding same pair of city link
-                if (dp[ch.first][minbike] > nextcost) {
-                    dp[ch.first][minbike] = nextcost;
-                    q.push({nextcost, ch.first, minbike});
+                if (dp[ch.f][minbike] > nextcost) {
+                    dp[ch.f][minbike] = nextcost;
+                    q.push({nextcost, ch.f, minbike});
                 }
             }
         }
