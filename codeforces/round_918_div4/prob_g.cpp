@@ -56,13 +56,13 @@ void solve() {
             ll nextcost = dp[now][bk] + 1ll * ch.second * bk;
             ll minbike = min(bk, bike[ch.first]);
 
-            //if (!visited[ch.first][minbike]) {
+            if (!visited[ch.first][minbike]) {
                 // avoiding same pair of city link
                 if (dp[ch.first][minbike] > nextcost) {
                     dp[ch.first][minbike] = nextcost;
                     q.push({nextcost, ch.first, minbike});
                 }
-            //}
+            }
         }
 
     }
