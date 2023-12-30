@@ -32,9 +32,7 @@ const ld EPS = 1e-9;
 void solve() {
     int n; cin >> n;
     if (n == 1) cout << 1 << '\n';
-    else if (n == 3) {
-        cout << 169 << '\n' << 196 << '\n' << 961 << '\n';
-    } else {
+    else {
         int count = 0;
         string num[3]{"169", "961", "196"};
         for (auto & i : num) {
