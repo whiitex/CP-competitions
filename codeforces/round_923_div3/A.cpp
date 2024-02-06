@@ -2,15 +2,6 @@
 
 using namespace std;
 
-typedef __int128_t lll; typedef long long ll; typedef long double ld;
-typedef pair<int,int> pii; typedef pair<ll,ll> pll;
-typedef vector<int> vi; typedef vector<ll> vll; typedef vector<pii> vpii; typedef vector<pll> vpll;
-
-#define pb push_back
-#define f first
-#define s second
-
-
 void solve() {
     int n; cin >> n;
     string s; cin >> s;

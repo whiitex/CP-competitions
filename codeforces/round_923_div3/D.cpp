@@ -29,7 +29,8 @@ void solve() {
     for (int i=0; i<q; ++i) {
         cin >> l >> r; --l; --r;
 
-        if (a[l].s <= r) cout << l+1 << ' ' << a[l].s+1 << '\n';
+        if (a[l].s <= r)
+            cout << l+1 << ' ' << a[l].s+1 << '\n';
         else cout << "-1 -1\n";
     }
 }
