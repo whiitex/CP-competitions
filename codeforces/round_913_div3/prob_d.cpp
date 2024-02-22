@@ -17,14 +17,14 @@ bool isposs(ll n, ll k) {
 
     for (ll i=0; i<n; ++i) {
 
-        // next segment is on the out-left
+        // next segment is on the out.txt-left
         if (r < vec[i].first) {
             if (r+k >= vec[i].first) {
                 l = vec[i].first;
                 r = min(r+k, vec[i].second);
             } else return false;
         }
-        // next segment is on the out-right
+        // next segment is on the out.txt-right
         else if (l > vec[i].second) {
             if (l-k <= vec[i].second) {
                 r = vec[i].second;
