@@ -38,7 +38,7 @@ void solve() {
 
     }
 
-    // find shortest path
+    // find the shortest path
     int mn = INF;
     for (int i=0; i<n; ++i) {
         if (dp[i][m-1] == INF) continue;
