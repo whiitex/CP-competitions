@@ -5,10 +5,6 @@ using namespace std;
 typedef long long ll;
 typedef vector<ll> vll;
 
-#define pb push_back
-#define f first
-#define s second
-
 const ll MOD = 998244353;
 
 ll fastexp(ll n, ll exp) {
