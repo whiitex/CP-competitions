@@ -2,9 +2,8 @@
 
 using namespace std;
 
-typedef long long ll; typedef long double ld;
-typedef pair<int,int> pii; typedef pair<ll,ll> pll;
-typedef vector<int> vi; typedef vector<ll> vll; typedef vector<pii> vpii; typedef vector<pll> vpll;
+typedef pair<int,int> pii;
+typedef vector<pii> vpii;
 
 #define pb push_back
 #define f first
