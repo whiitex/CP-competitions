@@ -11,9 +11,8 @@ typedef vector<ll> vll;
 
 const ll MOD = 998244353;
 
-ll fastexp(ll n) {
+ll fastexp(ll n, ll exp) {
     if (n == 1ll or n == 0) return 1ll;
-    ll exp = MOD-2;
     ll ans = 1, mul = n;
     while (exp) {
         if (exp & 1) ans = (ans * mul) % MOD;
@@ -57,7 +56,7 @@ void solve() {
 
         if (ind == 0 and c != '?') iszero = false;
 
-        ans = (ans * fastexp(vec[ind])) % MOD;
+        ans = (ans * fastexp(vec[ind], MOD-2)) % MOD;
         if (c == '?') {
 
             ans = (ans * max(ind, 1ll) ) % MOD;
