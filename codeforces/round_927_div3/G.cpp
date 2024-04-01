@@ -51,7 +51,7 @@ void solve() {
     }
 
     vi ans(n+1, INF);
-    set<pii> pq;
+    priority_queue<pii, vector<pii>, greater<>> pq;
 
     int ph = phi(MOD);
 
@@ -61,10 +61,10 @@ void solve() {
     ans[1] = 0;
 
     while (!pq.empty()) {
-        auto pp = *pq.begin();
-        int step = pp.f;
-        int plat = pp.s;
-        pq.erase(pp);
+        int step = pq.top().f;
+        int plat = pq.top().s;
+        pq.pop();
+        if (ans[plat] < step) continue;
 
         for (int ch: adj[plat]) {
             int num = (l[plat] + s[plat] * (step%MOD) - l[ch] - s[ch] * (step%MOD));
@@ -84,7 +84,6 @@ void solve() {
 
             int nextstep = step + toadd + 1;
             if (nextstep < ans[ch]) {
-                pq.erase({ans[ch],ch}); // VERY IMPORTANT
                 pq.emplace(nextstep, ch);
                 ans[ch] = nextstep;
             }
