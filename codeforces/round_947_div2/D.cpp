@@ -3,18 +3,9 @@
 using namespace std;
 
 #define int long long
-typedef __int128_t lll; typedef long double ld;
-typedef pair<int,int> pii; typedef pair<ld,ld> pld;
-typedef vector<int> vi; typedef vector<pii> vpii;
+typedef vector<int> vi;
 
 #define pb push_back
-#define f first
-#define s second
-
-const int MAXN = 1e5 + 5;
-const int MOD = 1e9 + 7;
-const int INF = 1e9;
-const ld EPS = 1e-9;
 
 void solve() {
     int n; cin >> n;
@@ -62,7 +53,7 @@ void solve() {
         c = par[c];
 
 
-    // MAX DEPTH FROM C
+    // MAX DEPTH FROM c
     auto dfs2 = [&] (auto self, int node, int par) -> int {
         int mx = -1;
         for (int ch: adj[node]) if (ch != par) {
