@@ -23,8 +23,7 @@ void solve() {
     auto dfs = [&] (auto dfs, int node) -> int {
         int mn = INF;
         for (int ch: adj[node]) {
-            int k = dfs(dfs, ch);
-            mn = min(mn, k);
+            mn = min(mn, dfs(dfs, ch));
         }
 
         if (node == 1) return mn;
