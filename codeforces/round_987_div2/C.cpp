@@ -6,8 +6,6 @@ using namespace std;
 typedef vector<int> vi;
 const int MAXN = 5e5 + 5;
 
-set<int> sqset;
-
 void solve() {
     int n; cin >> n;
 
@@ -44,10 +42,6 @@ void solve() {
 signed main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-
-    for (int i=1; i<MAXN; ++i) {
-        sqset.insert(i*i);
-    }
 
     int t = 1; cin >> t;
     while (t--) solve();
