@@ -4,17 +4,8 @@ using namespace std;
 
 #define int long long
 typedef vector<int> vi;
-typedef pair<int, int> pii;
-typedef vector<pii> vpii;
-
 
 #define pb push_back
-#define st first
-#define nd second
-
-const int MAXN = 5e5 + 5;
-const int MOD = 1e9 + 7;
-const int INF = 1e18;
 
 void solve() {
     int n; cin >> n;

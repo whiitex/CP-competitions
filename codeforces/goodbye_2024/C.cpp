@@ -3,17 +3,6 @@
 using namespace std;
 
 #define int long long
-typedef __int128_t lll; typedef long double ld;
-typedef pair<int,int> pii; typedef pair<ld,ld> pld;
-typedef vector<int> vi; typedef vector<pii> vpii;
-
-#define pb push_back
-#define st first
-#define nd second
-
-const int MAXN = 5e5 + 5;
-const int MOD = 1e9 + 7;
-const int INF = 1e18;
 
 void solve() {
     int n, k; cin >> n >> k;
