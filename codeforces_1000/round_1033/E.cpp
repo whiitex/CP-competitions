@@ -1,19 +1,9 @@
-// #pragma GCC optimize("Ofast,unroll-loops")
-// #pragma GCC optimize("O3")
 #include <bits/stdc++.h>
 using namespace std;
 
 #define int long long
-typedef __int128_t lll; typedef long double ld;
-typedef pair<int,int> pii; typedef pair<ld,ld> pld;
-typedef vector<int> vi; typedef vector<pii> vpii;
+typedef vector<int> vi;
 
-#define pb push_back
-#define st first
-#define nd second
-
-const int MXN = 5e5 + 5;
-const int MOD = 1e9 + 7;
 const int INF = 8e18;
 
 void solve() {
@@ -90,8 +80,7 @@ void solve() {
 		else l = x1 + 1;
 	}
 
-	int ans = min({check(l), check(l-2), check(l-1), check(l-3), check(l-4)});
-	ans = min({ans, check(l+1), check(l+2), check(l+3), check(l+4)});
+	int ans = min({check(l), check(l+1), check(l-1)});
 
 	cout << ans << "\n";
 }
