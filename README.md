@@ -18,5 +18,6 @@ In the [Swerc](/swerc) folder there are codes used for training on past editions
 ## LeetCode
 In the [LeetCode](/LeetCode) folder there are hard problems solved to sharpen fundamentals of competitive programming. Only hard problems solved on my [LeetCode profile](https://leetcode.com/u/whiitex/).
 
-## AoC 2024
+## Advent Of Code
 In [aoc24](/others/advent_of_code_24) all problems from Advent of Code 2024 solved in C++: 50/50 stars gained ⭐
+In [aoc25](/others/advent_of_code_25) all problems from Advent of Code 2025 solved in C++: 24/24 stars gained ⭐
